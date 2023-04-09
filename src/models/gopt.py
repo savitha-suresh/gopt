@@ -155,7 +155,7 @@ class GOPT(nn.Module):
         self.mlp_head_word3 = nn.Sequential(nn.LayerNorm(embed_dim), nn.Linear(embed_dim, 1))
 
         # canonical phone projection, assume there are 40 phns
-        self.phn_proj = nn.Linear(40, embed_dim)
+        self.phn_proj = nn.Linear(70, embed_dim)
 
         # utterance level, 1=accuracy, 2=completeness, 3=fluency, 4=prosodic, 5=total score
         self.cls_token1 = nn.Parameter(torch.zeros(1, 1, embed_dim))
@@ -184,7 +184,7 @@ class GOPT(nn.Module):
         B = x.shape[0]
 
         # phn_one_hot in shape [batch_size, seq_len, feat_dim]
-        phn_one_hot = torch.nn.functional.one_hot(phn.long()+1, num_classes=40).float()
+        phn_one_hot = torch.nn.functional.one_hot(phn.long()+1, num_classes=70).float()
         # phn_embed in shape [batch_size, seq_len, embed_dim]
         phn_embed = self.phn_proj(phn_one_hot)
 
@@ -248,7 +248,7 @@ class GOPTNoPhn(nn.Module):
         self.mlp_head_word3 = nn.Sequential(nn.LayerNorm(embed_dim), nn.Linear(embed_dim, 1))
 
         # phone projection
-        self.phn_proj = nn.Linear(40, embed_dim)
+        self.phn_proj = nn.Linear(70, embed_dim)
 
         # utterance level
         self.cls_token1 = nn.Parameter(torch.zeros(1, 1, embed_dim))
@@ -277,7 +277,7 @@ class GOPTNoPhn(nn.Module):
         B = x.shape[0]
 
         # phn_one_hot in shape [batch_size, seq_len, feat_dim]
-        phn_one_hot =  torch.nn.functional.one_hot(phn.long()+1, num_classes=40).float()
+        phn_one_hot =  torch.nn.functional.one_hot(phn.long()+1, num_classes=70).float()
         # phn_embed in shape [batch_size, seq_len, embed_dim]
         phn_embed = self.phn_proj(phn_one_hot)
 

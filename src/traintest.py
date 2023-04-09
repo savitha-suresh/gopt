@@ -324,6 +324,9 @@ class GoPDataset(Dataset):
         elif am=='paiib':
             dir='seq_data_paiib'
             norm_mean, norm_std = -0.516, 9.247
+        elif am=='quartznet':
+            dir='seq_data_quartznet_stp'
+            norm_mean, norm_std = -1.57, 4.89
         else:
             raise ValueError('Acoustic Model Unrecognized.')
 
@@ -338,6 +341,7 @@ class GoPDataset(Dataset):
             self.utt_label = torch.tensor(np.load('../data/'+dir+'/te_label_utt.npy'), dtype=torch.float)
             self.word_label = torch.tensor(np.load('../data/'+dir+'/te_label_word.npy'), dtype=torch.float)
 
+        
         # normalize the GOP feature using the training set mean and std (only count the valid token features, exclude the padded tokens).
         self.feat = self.norm_valid(self.feat, norm_mean, norm_std)
 
@@ -369,7 +373,7 @@ args = parser.parse_args()
 
 am = args.am
 print('now train with {:s} acoustic models'.format(am))
-feat_dim = {'librispeech':84, 'paiia':86, 'paiib': 88}
+feat_dim = {'librispeech':84, 'paiia':86, 'paiib': 88, 'quartznet': 140}
 input_dim=feat_dim[am]
 
 # nowa is the best models used in this work

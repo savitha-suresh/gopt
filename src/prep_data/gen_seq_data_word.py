@@ -59,17 +59,17 @@ with open('scores.json') as f:
     utt2score = json.loads(f.read())
 
 # sequence training data
-tr_feat = load_feat('../../data/raw_kaldi_gop/librispeech/tr_feats.csv')
-tr_keys = load_keys('../../data/raw_kaldi_gop/librispeech/tr_keys_word.csv')
-tr_label = load_label('../../data/raw_kaldi_gop/librispeech/tr_labels_word.csv')
+tr_feat = load_feat('../../data/raw_gop/quartznet_stp/tr_feats.csv')
+tr_keys = load_keys('../../data/raw_gop/quartznet_stp/tr_keys_word.csv')
+tr_label = load_label('../../data/raw_gop/quartznet_stp/tr_labels_word.csv')
 tr_label = process_feat_seq_word(tr_feat, tr_keys, tr_label)
 print(tr_label.shape)
-np.save('../../data/seq_data_librispeech/tr_label_word.npy', tr_label)
+np.save('../../data/seq_data_quartznet_stp/tr_label_word.npy', tr_label)
 
 # sequence test data
-te_feat = load_feat('../../data/raw_kaldi_gop/librispeech/te_feats.csv')
-te_keys = load_keys('../../data/raw_kaldi_gop/librispeech/te_keys_word.csv')
-te_label = load_label('../../data/raw_kaldi_gop/librispeech/te_labels_word.csv')
+te_feat = load_feat('../../data/raw_gop/quartznet_stp/te_feats.csv')
+te_keys = load_keys('../../data/raw_gop/quartznet_stp/te_keys_word.csv')
+te_label = load_label('../../data/raw_gop/quartznet_stp/te_labels_word.csv')
 te_label = process_feat_seq_word(te_feat, te_keys, te_label)
 print(te_label.shape)
-np.save('../../data/seq_data_librispeech/te_label_word.npy', te_label)
+np.save('../../data/seq_data_quartznet_stp/te_label_word.npy', te_label)

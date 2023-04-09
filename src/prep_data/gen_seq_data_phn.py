@@ -69,29 +69,31 @@ def gen_phn_dict(label):
     phn_dict = {}
     phn_idx = 0
     for i in range(label.shape[0]):
+    
         if label[i, 0] not in phn_dict:
             phn_dict[label[i, 0]] = phn_idx
             phn_idx += 1
     return phn_dict
 
 # generate sequence training data
-tr_feat = load_feat('../../data/raw_kaldi_gop/librispeech/tr_feats.csv')
-tr_keys = load_keys('../../data/raw_kaldi_gop/librispeech/tr_keys_phn.csv')
-tr_label = load_label('../../data/raw_kaldi_gop/librispeech/tr_labels_phn.csv')
+tr_feat = load_feat('../../data/raw_gop/quartznet_stp/tr_feats.csv')
+tr_keys = load_keys('../../data/raw_gop/quartznet_stp/tr_keys_phn.csv')
+tr_label = load_label('../../data/raw_gop/quartznet_stp/tr_labels_phn.csv')
 phn_dict = gen_phn_dict(tr_label)
 print(phn_dict)
 tr_feat, tr_label = process_feat_seq(tr_feat, tr_keys, tr_label, phn_dict)
 print(tr_feat.shape)
 print(tr_label.shape)
-np.save('../../data/seq_data_librispeech/tr_feat.npy', tr_feat)
-np.save('../../data/seq_data_librispeech/tr_label_phn.npy', tr_label)
+np.save('../../data/seq_data_quartznet_stp/tr_feat.npy', tr_feat)
+np.save('../../data/seq_data_quartznet_stp/tr_label_phn.npy', tr_label)
 
 # generate sequence test data
-te_feat = load_feat('../../data/raw_kaldi_gop/librispeech/te_feats.csv')
-te_keys = load_keys('../../data/raw_kaldi_gop/librispeech/te_keys_phn.csv')
-te_label = load_label('../../data/raw_kaldi_gop/librispeech/te_labels_phn.csv')
+te_feat = load_feat('../../data/raw_gop/quartznet_stp/te_feats.csv')
+te_keys = load_keys('../../data/raw_gop/quartznet_stp/te_keys_phn.csv')
+te_label = load_label('../../data/raw_gop/quartznet_stp/te_labels_phn.csv')
+phn_dict = gen_phn_dict(te_label)
 te_feat, te_label = process_feat_seq(te_feat, te_keys, te_label, phn_dict)
 print(te_feat.shape)
 print(te_label.shape)
-np.save('../../data/seq_data_librispeech/te_feat.npy', te_feat)
-np.save('../../data/seq_data_librispeech/te_label_phn.npy', te_label)
+np.save('../../data/seq_data_quartznet_stp/te_feat.npy', te_feat)
+np.save('../../data/seq_data_quartznet_stp/te_label_phn.npy', te_label)

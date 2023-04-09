@@ -17,23 +17,27 @@ import argparse
 import kaldi_io
 from utils import load_human_scores, load_phone_symbol_table
 
+
 def get_args():
     parser = argparse.ArgumentParser(description='Extract GOP Feactures from the Kaldi so762 recipe', formatter_class=argparse.ArgumentDefaultsHelpFormatter)
-    parser.add_argument('--feature_scp', default='exp/gop_train/feat.scp', help='Input gop-based feature file, in Kaldi scp')
-    parser.add_argument('--phone-symbol-table', type=str, default='data/lang_nosp/phones-pure.txt', help='Phone symbol table')
-    parser.add_argument('--human_scoring_json', default='data/local/scores.json', help='Input human scores file, in JSON format')
+    parser.add_argument('--feature_scp', default='/home/savitha/ablation-skill2030/gopt/data/gopt_test/feat.scp', help='Input gop-based feature file, in Kaldi scp')
+    parser.add_argument('--phone-symbol-table', type=str, default='/home/savitha/ablation-skill2030/gopt/data/phones.txt', help='Phone symbol table')
+    parser.add_argument('--human_scoring_json', default='/home/savitha/ablation-skill2030/speechocean762/speechocean762/resource/scores.json', help='Input human score>
     parser.add_argument('--min-phone-idx', type=int, default=-1)
     parser.add_argument('--max-phone-idx', type=int, default=999)
+    parser.add_argument('--floor', type=float, default=0.1)
     sys.stderr.write(' '.join(sys.argv) + "\n")
     args = parser.parse_args()
     return args
 
+
+
 def main(args, set):
 
     if set == 'train':
-        args.feature_scp = 'exp/gop_train/feat.scp'
+        args.feature_scp = '/home/savitha/ablation-skill2030/gopt/data/gopt_train/feat.scp'
     elif set == 'test':
-        args.feature_scp = 'exp/gop_test/feat.scp'
+        args.feature_scp = '/home/savitha/ablation-skill2030/gopt/data/gopt_test/feat.scp'
     else:
         raise ValueError('set must be train or test')
 
